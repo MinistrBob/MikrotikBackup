@@ -37,9 +37,9 @@ class Mikrotik:
                 self.ssh = ssh
                 print(f"  Successfully connected to server {self.address}")
             except paramiko.AuthenticationException:
-                print(f"ERROR: Authentication failed when connecting to {self.address}")
+                raise Exception(f"ERROR: Authentication failed when connecting to {self.address}")
             except Exception as e:
-                print(f"ERROR: Can't connect to SSH:\n{e}")
+                raise Exception(f"ERROR: Can't connect to SSH:\n{e}")
 
     def backup_export(self, backup_name):
         """Create backup with export command.
@@ -50,7 +50,7 @@ class Mikrotik:
             time.sleep(5)
             print(f"  Export backup created")
         except Exception as e:
-            print(f"ERROR: Can't create export backup:\n{e}")
+            raise Exception(f"ERROR: Can't create export backup:\n{e}")
 
     def backup_backup(self, backup_name):
         """Create backup with export command.
@@ -61,7 +61,7 @@ class Mikrotik:
             time.sleep(5)
             print(f"  Backup backup created")
         except Exception as e:
-            print(f"ERROR: Can't create backup backup:\n{e}")
+            raise Exception(f"ERROR: Can't create backup backup:\n{e}")
 
     def download_file(self, source, destination):
         """Download file from mikrotik"""
@@ -72,7 +72,7 @@ class Mikrotik:
             ftp_client.close()
             print(f"  File downloaded")
         except Exception as e:
-            print(f"ERROR: Can't download file:\n{e}")
+            raise Exception(f"ERROR: Can't download file:\n{e}")
 
     def define_name(self):
         """Define name of mikrotik"""
@@ -85,16 +85,16 @@ class Mikrotik:
             self.name = identity[:14]
             print(f"  Name defined")
         except Exception as e:
-            print(f"ERROR: Can't define name:\n{e}")
+            raise Exception(f"ERROR: Can't define name:\n{e}")
 
     def execute_command(self, command):
         """Execute any commands"""
-        print(f"Execute command {command}")
+        print(f'Execute command "{command}"')
         try:
             stdin, stdout, stderr = self.ssh.exec_command(command + "\n")
             output = stdout.read()
             output = output.decode('UTF-8')
-            print(f"  Command executed")
+            print(f"  Command executed:\n-->\n{output}\n-->")
             return output
         except Exception as e:
-            print(f"ERROR: Can't execute command:\n{e}")
+            raise Exception(f"ERROR: Can't execute command:\n{e}")
