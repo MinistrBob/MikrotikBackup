@@ -45,8 +45,13 @@ docker run --rm -it -e MIKROTIK_BACKUP_PATH="/backup" -v c:\!SAVE\backup\:/backu
 ## Mikrotik commands
 ### Add new user and disable admin
 ```commandline
-/user add name=gsadmin group=full password=qweerewtq
+/user add name=root group=full password=qweerewtq
 /user disable 0
+```
+### DNS Settings
+```commandline
+/ip dns set allow-remote-requests=no
+/ip dns set servers=192.168.2.1,8.8.8.8
 ```
 
 ## For developer
