@@ -57,4 +57,4 @@ pip freeze | Out-File -Encoding UTF8 requirements.txt
 
 ## TODO
 - execute_command(self, command) = handle errors like "expected end of command (line 1 column 19)"
-- 
+- set up github actions 
