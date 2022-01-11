@@ -115,8 +115,10 @@ def execute_command(command):
         config = csv.reader(f, delimiter=';')
         # headers = next(reader, None)
         for line in config:  # ['192.168.2.1', 'admin', '']
-            # print(line)
-            if line[0].startswith('#'):
+            print(line)
+            if not line:  # skip empty lines
+                continue
+            if line[0].startswith('#'):  # skip comments
                 continue
             # Work with mikrotik
             print(f"Work with {line[0]} mikrotik")
