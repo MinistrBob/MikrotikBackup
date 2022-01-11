@@ -27,11 +27,12 @@ class Mikrotik:
     def connect_ssh(self):
         """Create instance SSHClient for this mikrotik"""
         print(f"Connect to server {self.address}")
+        # print(f"user={self.username} | password={self.password}")
         if self.ssh is None:
             try:
                 ssh = paramiko.SSHClient()
                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                ssh.connect(hostname=self.address, username=self.username, password=self.password, timeout=10)
+                ssh.connect(hostname=self.address, username=self.username, password=self.password, timeout=10, look_for_keys=False)
                 transport = ssh.get_transport()
                 transport.set_keepalive(30)
                 self.ssh = ssh

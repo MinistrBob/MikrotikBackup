@@ -101,7 +101,7 @@ def backup_mikrotiks():
                 mk = Mikrotik(line[0], line[1], line[2])
                 backup_mikrotik(mk, curr_date, base_path, line)
                 result[line[0]] = "OK"
-            except Exception:
+            except Exception as e:
                 result[line[0]] = "ERROR"
                 print(f"ERROR: {e}")
                 continue
